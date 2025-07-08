@@ -41,3 +41,7 @@ package-lock.json
 .DS_Store
 
 .env
+
+.vscode
+
+nativewind-env.d.ts
