@@ -1,6 +1,11 @@
-import "./global.css";
-import ChatBotUi from "./components/ChatBotUi";
+import "./localization/index";
+import ChatScreen from "./components/ChatScreen";
+import { SafeAreaView } from "react-native";
 
 export default function App() {
-  return <ChatBotUi />;
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ChatScreen />
+    </SafeAreaView>
+  );
 }
