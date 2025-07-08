@@ -1,6 +1,9 @@
 {
+  "title": "Skin care & Beauty Medical Assistant",
   "welcome": "Hello! How can I help you today?",
   "toggle_language": "Switch to Arabic",
   "history": "History",
-  "input_placeholder": "Ask about a condition or describe symptoms..."
+  "input_placeholder": "Ask about a condition or describe symptoms...",
+  "sidebar_title": "Settings",
+  "switch_lang": "Switch to Arabic"
 }
