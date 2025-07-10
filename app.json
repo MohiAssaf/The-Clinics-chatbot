@@ -1,20 +1,20 @@
 {
   "expo": {
-    "name": "chatbot-theClinics",
-    "slug": "chatbot-theClinics",
+    "name": "The Clinics Assistant",
+    "slug": "the-clinics-assistant",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mo2003.chatbottheClinics",
+      "bundleIdentifier": "com.theclinics.assistant",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -32,7 +32,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "6c7c783e-e1e0-43dc-a69e-4716f5ec82e6"
+        "projectId": "45f3f592-019b-4cf5-9b16-2e3c1b73a2cc"
       }
     }
   }
