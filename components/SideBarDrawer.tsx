@@ -1,49 +1,100 @@
 import { useTranslation } from "react-i18next";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-const SideBarDrawer = ({ onToggleLang, onClose, isRTL }: any) => {
+const SideBarDrawer = ({
+  onToggleLang,
+  onClose,
+  isRTL,
+  chats,
+  activeChatId,
+  setActiveChatId,
+  startNewChat,
+  deleteAllChats,
+}: any) => {
   const { t } = useTranslation();
 
   return (
-    <View className="flex-1 bg-white p-3">
+    <View className="flex-1 bg-white pt-6 px-4">
       <View
-        className={`flex ${isRTL ? "flex-row-reverse" : "flex-row"} items-center justify-between mb-8`}
+        className={`flex ${isRTL ? "flex-row-reverse" : "flex-row"} items-center justify-between mb-6`}
       >
-        <Text className="text-xl font-semibold text-gray-900">
+        <Text className="text-xl font-bold text-gray-900">
           {t("sidebar_title")}
         </Text>
         <TouchableOpacity
           onPress={onClose}
-          className="p-2 rounded-full active:bg-gray-100"
+          className="p-2 rounded-full bg-gray-100"
         >
-          <Ionicons name="close" size={24} className="text-gray-500" />
+          <Ionicons name="close" size={20} color="#6B7280" />
         </TouchableOpacity>
       </View>
 
-      <View className="border-t border-gray-200 pt-4">
-        <TouchableOpacity
-          onPress={onToggleLang}
-          className={`flex ${isRTL ? "flex-row-reverse" : "flex-row"} items-center rounded-xl p-4 mb-4 active:bg-gray-50`}
-          activeOpacity={0.7}
+      <View className="flex-1">
+        <View
+          className={`flex-row ${isRTL ? "flex-row-reverse" : "flex-row"}  justify-between items-center pb-4 mb-2`}
         >
-          <MaterialIcons
-            name="history"
-            size={24}
-            className="text-gray-600 mx-3"
-          />
-          <Text className="text-gray-800">{t("history")}</Text>
-        </TouchableOpacity>
+          <View className="flex-row items-center gap-2">
+            <MaterialIcons name="history" size={20} color="#4B5563" />
+            <Text className="text-lg font-semibold text-gray-800">
+              {t("recent_chats")}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={deleteAllChats}
+            className="p-2 rounded-lg bg-gray-100"
+          >
+            <Ionicons name="trash-outline" size={18} color="#991B1B" />
+          </TouchableOpacity>
+        </View>
+
+        <ScrollView
+          className="flex-1"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 16 }}
+        >
+          {chats?.length > 0 ? (
+            chats.map((chat: any) => (
+              <TouchableOpacity
+                key={chat.id}
+                onPress={() => {
+                  setActiveChatId(chat.id);
+                  onClose();
+                }}
+                className={`p-3 rounded-lg mb-2 ${chat.id === activeChatId ? "bg-blue-50 border border-blue-200" : "bg-gray-50"}`}
+              >
+                <Text
+                  className={`${chat.id === activeChatId ? "text-blue-800" : "text-gray-800"}`}
+                  numberOfLines={1}
+                >
+                  {chat.messages[0]?.text.slice(0, 30) || "New Chat"}
+                </Text>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <View className="py-8 items-center justify-center">
+              <MaterialIcons name="search-off" size={32} color="#9CA3AF" />
+              <Text className="text-gray-500 mt-2">{t("no_recent_chats")}</Text>
+            </View>
+          )}
+        </ScrollView>
       </View>
 
-      <View className="mt-auto mb-4">
+      <View className="mt-auto pb-4 flex-col gap-2">
+        <TouchableOpacity
+          onPress={startNewChat}
+          className={`flex-row ${isRTL ? "flex-row-reverse" : "flex-row"}  items-center justify-center gap-2 p-4 bg-teal-600 rounded-lg`}
+        >
+          <Ionicons name="chatbubble" size={20} color="white" />
+          <Text className="text-white font-medium">{t("new_chat")}</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           onPress={onToggleLang}
-          className={`flex ${isRTL ? "flex-row-reverse" : "flex-row"} items-center justify-center bg-blue-500 rounded-xl p-4 active:bg-blue-600`}
-          activeOpacity={0.7}
+          className={`flex-row ${isRTL ? "flex-row-reverse" : "flex-row"} items-center justify-center gap-2 bg-gray-300 rounded-lg p-4`}
         >
-          <Ionicons name="language" size={24} className="text-white mx-2" />
-          <Text className="text-white font-medium">{t("switch_lang")}</Text>
+          <Ionicons name="language" size={18} color="#374151" />
+          <Text className="text-gray-800 font-medium">{t("switch_lang")}</Text>
         </TouchableOpacity>
       </View>
     </View>

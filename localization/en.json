@@ -5,5 +5,8 @@
   "history": "History",
   "input_placeholder": "Ask about a condition or describe symptoms...",
   "sidebar_title": "Settings",
-  "switch_lang": "Switch to Arabic"
+  "switch_lang": "Switch to Arabic",
+  "new_chat": "New Chat",
+  "recent_chats": "Recent Chats",
+  "no_recent_chats": "No recent chats"
 }
