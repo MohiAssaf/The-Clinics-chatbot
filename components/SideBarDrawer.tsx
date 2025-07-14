@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { SideBarDrawerProps } from "../types/sideDrawer";
 
 const SideBarDrawer = ({
   onToggleLang,
@@ -11,7 +12,7 @@ const SideBarDrawer = ({
   setActiveChatId,
   startNewChat,
   deleteAllChats,
-}: any) => {
+}: SideBarDrawerProps) => {
   const { t } = useTranslation();
 
   return (
