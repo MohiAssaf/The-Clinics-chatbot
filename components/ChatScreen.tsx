@@ -9,6 +9,7 @@ import { renderChatAvatar } from "./Chat/Avatar";
 import { renderChatMessage } from "./Chat/Message";
 import { renderInputToolbar } from "./Chat/InputToolBar";
 import { useChatLogic } from "../hooks/useChatLogic";
+import { renderSendButton } from "./Chat/SendButton";
 
 const ChatScreen = () => {
   const { t } = useTranslation();
@@ -70,7 +71,7 @@ const ChatScreen = () => {
         />
       )}
     >
-      <View className="flex-1 bg-gray-100">
+      <View className="flex-1 bg-white mb-6">
         <View
           className={`flex-row items-center justify-between px-4 py-2 bg-white border-b border-[#00827e] ${
             isRTL ? "flex-row-reverse" : "flex-row"
@@ -100,11 +101,26 @@ const ChatScreen = () => {
             user={{ _id: USER_ID, name: "You" }}
             placeholder={t("input_placeholder")}
             renderUsernameOnMessage={false}
-            alwaysShowSend={true}
+            alwaysShowSend
             showUserAvatar
+            isScrollToBottomEnabled
+            scrollToBottomStyle={{
+              position: "absolute",
+              bottom: 30,
+              left: "50%",
+              transform: [{ translateX: -20 }],
+              borderColor: "white",
+              borderWidth: 2,
+              borderRadius: 20,
+              width: 40,
+              height: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 10,
+            }}
             scrollToBottomComponent={() => (
-              <View className="mb-4 mr-4 p-2 bg-white rounded-full shadow-md">
-                <Ionicons name="chevron-down" size={20} color="#6B7280" />
+              <View className="w-10 h-10 bg-[#0d9488] rounded-full justify-center items-center shadow-md">
+                <Ionicons name="arrow-down" size={20} color="white" />
               </View>
             )}
             messagesContainerStyle={{
@@ -134,39 +150,7 @@ const ChatScreen = () => {
                 maxHeight: 120,
               },
             }}
-            renderSend={(props) => (
-              <Send
-                {...props}
-                containerStyle={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginHorizontal: 8,
-                  marginBottom: 2,
-                }}
-                disabled={!props.text}
-              >
-                <View
-                  style={{
-                    backgroundColor: props.text ? "#10B981" : "#A7F3D0",
-                    borderRadius: 25,
-                    width: 48,
-                    height: 48,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Ionicons
-                    name="paper-plane"
-                    size={22}
-                    color="white"
-                    style={{
-                      transform: [{ scaleX: isRTL ? -1 : 1 }],
-                      opacity: props.text ? 1 : 0.8,
-                    }}
-                  />
-                </View>
-              </Send>
-            )}
+            renderSend={renderSendButton(isRTL)}
             timeFormat="HH:mm"
             dateFormat="MMMM D, YYYY"
             infiniteScroll
