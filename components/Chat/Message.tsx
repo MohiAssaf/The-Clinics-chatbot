@@ -18,9 +18,11 @@ export const renderChatMessage =
         containerStyle={{
           left: {
             flexDirection: isLeft ? "row" : "row-reverse",
+            alignItems: "flex-end",
           },
           right: {
             flexDirection: isLeft ? "row-reverse" : "row",
+            alignItems: "flex-end",
           },
         }}
       />

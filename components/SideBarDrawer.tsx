@@ -81,7 +81,7 @@ const SideBarDrawer = ({
         </ScrollView>
       </View>
 
-      <View className="mt-auto pb-4 flex-col gap-2">
+      <View className="mt-auto pb-10 flex-col gap-2">
         <TouchableOpacity
           onPress={startNewChat}
           className={`flex-row ${isRTL ? "flex-row-reverse" : "flex-row"}  items-center justify-center gap-2 p-4 bg-teal-600 rounded-lg`}

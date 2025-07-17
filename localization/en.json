@@ -1,6 +1,6 @@
 {
-  "title": "Skin care & Beauty Medical Assistant",
-  "welcome": "Hello! How can I help you today?",
+  "title": "The Clinics Assistant",
+  "welcome": "Welcome to Skin care & Beauty Medical Assistant! You can ask me about any skin disease or describe the symptoms you are suffering from, and I will provide you with the possible disease. This application does not replace a visit to the doctor.",
   "toggle_language": "Switch to Arabic",
   "history": "History",
   "input_placeholder": "Ask about a condition or describe symptoms...",

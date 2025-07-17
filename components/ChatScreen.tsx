@@ -30,8 +30,11 @@ const ChatScreen = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" />
+      <View className="flex-1 justify-center items-center bg-gray-100">
+        <ActivityIndicator size="large" color="#3B82F6" />
+        <Text className="mt-4 text-lg font-medium text-gray-700">
+          Loading your chat...
+        </Text>
       </View>
     );
   }
@@ -46,10 +49,10 @@ const ChatScreen = () => {
         width: 260,
         backgroundColor: "#ffffff",
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 5,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 6,
+        elevation: 8,
       }}
       renderDrawerContent={() => (
         <SideBarDrawer
@@ -58,7 +61,7 @@ const ChatScreen = () => {
           isRTL={isRTL}
           chats={chats}
           activeChatId={activeChatId}
-          setActiveChatId={(id: string) => {
+          setActiveChatId={(id) => {
             setActiveChat(id);
             setDrawerOpen(false);
           }}
@@ -67,100 +70,108 @@ const ChatScreen = () => {
         />
       )}
     >
-      <View className="flex-1">
+      <View className="flex-1 bg-gray-100">
         <View
-          className={`flex-row items-center justify-between px-4 py-3 bg-[#fcfdfd] border-b border-gray-200 ${
+          className={`flex-row items-center justify-between px-4 py-2 bg-white border-b border-[#00827e] ${
             isRTL ? "flex-row-reverse" : "flex-row"
-          }`}
+          } shadow-lg`}
         >
           <TouchableOpacity
             onPress={() => setDrawerOpen((prev) => !prev)}
-            className="p-2 rounded-lg"
+            className="p-2 rounded-full active:bg-gray-100"
             accessibilityLabel="Menu button"
           >
-            <Ionicons name="menu" size={24} color="#3B82F6" />
+            <Ionicons name="menu" size={26} color="#00827e" />
           </TouchableOpacity>
 
-          <Text className="text-lg font-semibold text-gray-900">
-            {t("title")}
-          </Text>
+          <View className="flex-1 flex-row items-center justify-center gap-3">
+            <Ionicons name="chatbubbles-outline" size={22} color="#00827e" />
+            <Text className="text-xl font-bold text-gray-800 tracking-tight">
+              {t("title")}
+            </Text>
+          </View>
 
           <View className="w-10" />
         </View>
-
-        <GiftedChat
-          messages={currentDisplayedChat?.messages || []}
-          onSend={onSendMessage}
-          user={{ _id: USER_ID, name: "You" }}
-          placeholder={t("input_placeholder")}
-          renderUsernameOnMessage={false}
-          alwaysShowSend={true}
-          showUserAvatar
-          scrollToBottomComponent={() => (
-            <Ionicons name="chevron-down" size={20} color="#6B7280" />
-          )}
-          messagesContainerStyle={{
-            backgroundColor: "#F9FAFB",
-            paddingBottom: 16,
-          }}
-          renderMessage={renderChatMessage(isRTL, USER_ID)}
-          renderAvatar={renderChatAvatar(isRTL, USER_ID)}
-          renderInputToolbar={renderInputToolbar(isRTL)}
-          renderBubble={renderChatBubble(isRTL, USER_ID)}
-          textInputProps={{
-            textAlign: isRTL ? "right" : "left",
-            writingDirection: isRTL ? "rtl" : "ltr",
-            style: {
-              backgroundColor: "#F9FAFB",
-              borderRadius: 20,
-              paddingHorizontal: 16,
-              paddingVertical: 8,
-              fontSize: 16,
-              borderWidth: 1,
-              borderColor: "#E5E7EB",
-              flex: 1,
-              marginHorizontal: 4,
-              color: "#1F2937",
-              minHeight: 40,
-              maxHeight: 100,
-            },
-          }}
-          renderSend={(props) => (
-            <Send
-              {...props}
-              containerStyle={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginHorizontal: 4,
-              }}
-              disabled={!props.text}
-            >
-              <View
-                style={{
-                  backgroundColor: props.text ? "#10B981" : "#9CA3AF",
-                  borderRadius: 20,
-                  width: 40,
-                  height: 40,
+        <View className="flex-1">
+          <GiftedChat
+            messages={currentDisplayedChat?.messages || []}
+            onSend={onSendMessage}
+            user={{ _id: USER_ID, name: "You" }}
+            placeholder={t("input_placeholder")}
+            renderUsernameOnMessage={false}
+            alwaysShowSend={true}
+            showUserAvatar
+            scrollToBottomComponent={() => (
+              <View className="mb-4 mr-4 p-2 bg-white rounded-full shadow-md">
+                <Ionicons name="chevron-down" size={20} color="#6B7280" />
+              </View>
+            )}
+            messagesContainerStyle={{
+              backgroundColor: "#f0fdfa",
+              paddingBottom: 20,
+              paddingTop: 10,
+            }}
+            renderMessage={renderChatMessage(isRTL, USER_ID)}
+            renderAvatar={renderChatAvatar(isRTL, USER_ID)}
+            renderInputToolbar={renderInputToolbar(isRTL)}
+            renderBubble={renderChatBubble(isRTL, USER_ID)}
+            textInputProps={{
+              textAlign: isRTL ? "right" : "left",
+              writingDirection: isRTL ? "rtl" : "ltr",
+              style: {
+                backgroundColor: "#FFFFFF",
+                borderRadius: 25,
+                paddingHorizontal: 18,
+                paddingVertical: 10,
+                fontSize: 16,
+                borderWidth: 1,
+                borderColor: "#D1D5DB",
+                flex: 1,
+                marginHorizontal: 8,
+                color: "#1F2937",
+                minHeight: 44,
+                maxHeight: 120,
+              },
+            }}
+            renderSend={(props) => (
+              <Send
+                {...props}
+                containerStyle={{
                   justifyContent: "center",
                   alignItems: "center",
+                  marginHorizontal: 8,
+                  marginBottom: 2,
                 }}
+                disabled={!props.text}
               >
-                <Ionicons
-                  name="paper-plane"
-                  size={20}
-                  color="white"
+                <View
                   style={{
-                    transform: [{ scaleX: isRTL ? -1 : 1 }],
-                    opacity: props.text ? 1 : 0.7,
+                    backgroundColor: props.text ? "#10B981" : "#A7F3D0",
+                    borderRadius: 25,
+                    width: 48,
+                    height: 48,
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                />
-              </View>
-            </Send>
-          )}
-          timeFormat="HH:mm"
-          dateFormat="MMMM D, YYYY"
-          infiniteScroll
-        />
+                >
+                  <Ionicons
+                    name="paper-plane"
+                    size={22}
+                    color="white"
+                    style={{
+                      transform: [{ scaleX: isRTL ? -1 : 1 }],
+                      opacity: props.text ? 1 : 0.8,
+                    }}
+                  />
+                </View>
+              </Send>
+            )}
+            timeFormat="HH:mm"
+            dateFormat="MMMM D, YYYY"
+            infiniteScroll
+          />
+        </View>
       </View>
     </Drawer>
   );

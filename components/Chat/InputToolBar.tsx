@@ -9,8 +9,8 @@ export const renderInputToolbar = (isRTL: boolean) => (props: any) => {
         backgroundColor: "#FFFFFF",
         borderTopWidth: 1,
         borderTopColor: "#E5E7EB",
-        paddingHorizontal: 12,
-        paddingVertical: 8,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
         alignItems: "center",
       }}
       primaryStyle={{

@@ -10,52 +10,71 @@ export const renderChatBubble =
       : isUser
         ? "right"
         : "left";
+
     return (
       <Bubble
         {...props}
         position={position}
         wrapperStyle={{
           right: {
-            backgroundColor: isUser ? "#00827e" : "#FFFFFF",
-            paddingVertical: 6,
-            paddingHorizontal: 10,
-            borderTopRightRadius: 12,
-            borderTopLeftRadius: 12,
+            backgroundColor: "#01827e",
+            paddingVertical: 8,
+            paddingHorizontal: 14,
+            borderTopRightRadius: 18,
+            borderTopLeftRadius: 18,
+            borderBottomRightRadius: 6,
+            borderBottomLeftRadius: 18,
             marginRight: isRTL ? 10 : 0,
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 12,
+            marginBottom: 8,
+            marginTop: 8,
+
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.15,
+            shadowRadius: 3,
+            elevation: 4,
           },
           left: {
-            backgroundColor: isUser ? "#00827e" : "#FFFFFF",
+            backgroundColor: "#FFFFFF",
             marginLeft: isRTL ? 10 : 0,
-            paddingVertical: 6,
-            paddingHorizontal: 10,
+            paddingVertical: 8,
+            paddingHorizontal: 14,
             borderWidth: 1,
             borderColor: "#E5E7EB",
-            borderTopRightRadius: 12,
-            borderTopLeftRadius: 12,
-            borderBottomRightRadius: 12,
-            borderBottomLeftRadius: 0,
+            borderTopRightRadius: 18,
+            borderTopLeftRadius: 18,
+            borderBottomRightRadius: 18,
+            borderBottomLeftRadius: 6,
+            marginBottom: 8,
+            marginTop: 8,
+
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.08,
+            shadowRadius: 2,
+            elevation: 2,
           },
         }}
         textStyle={{
           right: {
-            color: isUser ? "#ffffff" : "#1f2937",
-            fontSize: 15,
-            lineHeight: 20,
+            color: "#ffffff",
+            fontSize: 16,
+            lineHeight: 22,
           },
           left: {
-            color: isUser ? "#ffffff" : "#1f2937",
-            fontSize: 15,
-            lineHeight: 20,
+            color: "#1F2937",
+            fontSize: 16,
+            lineHeight: 22,
           },
         }}
         timeTextStyle={{
           right: {
-            color: isUser ? "#ffffff" : "#1f2937",
+            color: "rgba(255,255,255,0.7)",
+            fontSize: 10,
           },
           left: {
-            color: isUser ? "#ffffff" : "#1f2937",
+            color: "#6B7280",
+            fontSize: 10,
           },
         }}
       />
