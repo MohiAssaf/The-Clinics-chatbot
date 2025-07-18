@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import { GiftedChat, Send } from "react-native-gifted-chat";
+import { GiftedChat } from "react-native-gifted-chat";
 import { Ionicons } from "@expo/vector-icons";
 import { Drawer } from "react-native-drawer-layout";
 import SideBarDrawer from "./SideBarDrawer";
@@ -10,6 +10,7 @@ import { renderChatMessage } from "./Chat/Message";
 import { renderInputToolbar } from "./Chat/InputToolBar";
 import { useChatLogic } from "../hooks/useChatLogic";
 import { renderSendButton } from "./Chat/SendButton";
+import renderFooter from "./Chat/Footer";
 
 const ChatScreen = () => {
   const { t } = useTranslation();
@@ -27,6 +28,8 @@ const ChatScreen = () => {
     onSendMessage,
     currentDisplayedChat,
     USER_ID,
+    isTyping,
+    direction,
   } = useChatLogic();
 
   if (loading) {
@@ -154,6 +157,7 @@ const ChatScreen = () => {
             timeFormat="HH:mm"
             dateFormat="MMMM D, YYYY"
             infiniteScroll
+            renderFooter={renderFooter(isTyping, isRTL)}
           />
         </View>
       </View>
