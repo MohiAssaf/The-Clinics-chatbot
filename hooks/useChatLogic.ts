@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Chat } from "../types/chat";
-import { I18nManager } from "react-native";
-import { createWelcomeMessage, generateNewChatId } from "../utils/chatHelpers";
-import { loadChatsFromStorage, saveChatsToStorage } from "../services/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GiftedChat, IMessage } from "react-native-gifted-chat";
 import { AI_ID, USER_ID } from "../constants/chat";
+import { LANGUAGE_STORAGE_KEY } from "../constants/chat";
+import { loadChatsFromStorage, saveChatsToStorage } from "../services/storage";
+import { createWelcomeMessage, generateNewChatId } from "../utils/chatHelpers";
+import { Chat } from "../types/chat";
+import { predefinedQuestionsAndAnswers } from "../constants/predifinedQandA";
 
 export const useChatLogic = () => {
   const { t, i18n } = useTranslation();
@@ -13,8 +15,13 @@ export const useChatLogic = () => {
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isRTL, setIsRTL] = useState(I18nManager.isRTL);
+  const [isRTL, setIsRTL] = useState(i18n.language === "ar");
+  const [isTyping, setIsTyping] = useState(false);
   const isTemporaryNewChatRef = useRef(false);
+
+  useEffect(() => {
+    setIsRTL(i18n.language === "ar");
+  }, [i18n.language]);
 
   const onStartNewChat = useCallback(() => {
     const newId = generateNewChatId();
@@ -29,11 +36,8 @@ export const useChatLogic = () => {
         const stored = await loadChatsFromStorage();
         if (stored && stored.length > 0) {
           setChats(stored);
-          setActiveChatId(stored[0].id);
-          isTemporaryNewChatRef.current = false;
-        } else {
-          onStartNewChat();
         }
+        onStartNewChat();
       } catch (err) {
         console.error("Failed to load chats:", err);
         onStartNewChat();
@@ -56,11 +60,39 @@ export const useChatLogic = () => {
     }
   }, [chats, activeChatId]);
 
+  const getBotAnswer = useCallback(
+    (userMessage: string): string => {
+      const lowerCaseMessage = userMessage.toLowerCase().trim();
+      const currentLang = i18n.language;
+
+      const questionsForLang = predefinedQuestionsAndAnswers.filter(
+        (qa) => qa.language === currentLang
+      );
+
+      for (const qa of questionsForLang) {
+        if (
+          Array.isArray(qa.question)
+            ? qa.question.some((q) =>
+                lowerCaseMessage.includes(q.toLowerCase())
+              )
+            : lowerCaseMessage.includes(qa.question.toLowerCase())
+        ) {
+          return qa.answer;
+        }
+      }
+
+      return t("cant_answer");
+    },
+    [i18n.language]
+  );
+
   const onSendMessage = useCallback(
-    (newMessages: IMessage[] = []) => {
+    async (newMessages: IMessage[] = []) => {
       if (!activeChatId) {
         return;
       }
+
+      const userMessage = newMessages[0];
 
       setChats((prevChats) => {
         const chatIndex = prevChats.findIndex(
@@ -96,11 +128,45 @@ export const useChatLogic = () => {
           };
           updatedChats = [chatToUpdate, ...updatedChats];
         }
-
         return updatedChats;
       });
+
+      setIsTyping(true);
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      const botAnswer = getBotAnswer(userMessage.text);
+
+      const botMessage: IMessage = {
+        _id: Math.random().toString(),
+        text: botAnswer,
+        createdAt: new Date(),
+        user: {
+          _id: AI_ID,
+          name: "Bot",
+        },
+      };
+
+      setChats((prevChats) => {
+        const chatIndex = prevChats.findIndex(
+          (chat) => chat.id === activeChatId
+        );
+        if (chatIndex !== -1) {
+          const updatedChats = [...prevChats];
+          updatedChats[chatIndex] = {
+            ...updatedChats[chatIndex],
+            messages: GiftedChat.append(updatedChats[chatIndex].messages, [
+              botMessage,
+            ]),
+          };
+          return updatedChats;
+        }
+        return prevChats;
+      });
+
+      setIsTyping(false);
     },
-    [activeChatId, t]
+    [activeChatId, getBotAnswer, t, i18n.language]
   );
 
   const onDeleteAllChats = useCallback(async () => {
@@ -115,11 +181,15 @@ export const useChatLogic = () => {
     }
   }, [onStartNewChat]);
 
-  const onToggleLanguage = useCallback(() => {
+  const onToggleLanguage = useCallback(async () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
-    I18nManager.forceRTL(newLang === "ar");
-    setIsRTL(newLang === "ar");
+    try {
+      await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, newLang);
+    } catch (e) {
+      console.error("Failed to save language to storage:", e);
+    }
+
     onStartNewChat();
   }, [i18n, onStartNewChat]);
 
@@ -160,5 +230,7 @@ export const useChatLogic = () => {
     currentDisplayedChat,
     USER_ID,
     AI_ID,
+    isTyping,
+    direction: i18n.dir(),
   };
 };

@@ -8,5 +8,6 @@
   "switch_lang": "Switch to Arabic",
   "new_chat": "New Chat",
   "recent_chats": "Recent Chats",
-  "no_recent_chats": "No recent chats"
+  "no_recent_chats": "No recent chats",
+  "cant_answer": "I'm sorry, I cannot answer this question at the moment. Please rephrase or ask a different question."
 }
