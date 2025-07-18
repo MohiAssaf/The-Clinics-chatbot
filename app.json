@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "The Clinics Assistant",
+    "name": "The Clinics",
     "slug": "the-clinics-assistant",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,16 +24,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.theclinics.assistant"
     },
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "45f3f592-019b-4cf5-9b16-2e3c1b73a2cc"
-      }
     }
   }
 }
