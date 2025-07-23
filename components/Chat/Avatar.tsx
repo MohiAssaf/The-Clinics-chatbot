@@ -10,7 +10,7 @@ export const renderChatAvatar =
           width: 38,
           height: 38,
           borderRadius: 19,
-          backgroundColor: isUser ? "#e5e7eb" : "#00827e",
+          backgroundColor: isUser ? "#e5e7eb" : "#005796",
           justifyContent: "center",
           alignItems: "center",
           marginRight: isRTL ? 0 : isUser ? 0 : 12,

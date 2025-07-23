@@ -76,7 +76,7 @@ const ChatScreen = () => {
     >
       <View className="flex-1 bg-white mb-6">
         <View
-          className={`flex-row items-center justify-between px-4 py-2 bg-white border-b border-[#00827e] ${
+          className={`flex-row items-center justify-between px-4 py-2 bg-white border-b border-[#9fb9d5] ${
             isRTL ? "flex-row-reverse" : "flex-row"
           } shadow-lg`}
         >
@@ -85,11 +85,11 @@ const ChatScreen = () => {
             className="p-2 rounded-full active:bg-gray-100"
             accessibilityLabel="Menu button"
           >
-            <Ionicons name="menu" size={26} color="#00827e" />
+            <Ionicons name="menu" size={26} color="#005796" />
           </TouchableOpacity>
 
           <View className="flex-1 flex-row items-center justify-center gap-3">
-            <Ionicons name="chatbubbles-outline" size={22} color="#00827e" />
+            <Ionicons name="chatbubbles-outline" size={22} color="#005796" />
             <Text className="text-xl font-bold text-gray-800 tracking-tight">
               {t("title")}
             </Text>
@@ -122,12 +122,12 @@ const ChatScreen = () => {
               zIndex: 10,
             }}
             scrollToBottomComponent={() => (
-              <View className="w-10 h-10 bg-[#0d9488] rounded-full justify-center items-center shadow-md">
+              <View className="w-10 h-10 bg-[#005796] rounded-full justify-center items-center shadow-md">
                 <Ionicons name="arrow-down" size={20} color="white" />
               </View>
             )}
             messagesContainerStyle={{
-              backgroundColor: "#f0fdfa",
+              backgroundColor: "#E3F0FA",
               paddingBottom: 20,
               paddingTop: 10,
             }}

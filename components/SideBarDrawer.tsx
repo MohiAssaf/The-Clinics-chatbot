@@ -1,5 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { SideBarDrawerProps } from "../types/sideDrawer";
 
@@ -20,9 +27,11 @@ const SideBarDrawer = ({
       <View
         className={`flex ${isRTL ? "flex-row-reverse" : "flex-row"} items-center justify-between mb-6`}
       >
-        <Text className="text-xl font-bold text-gray-900">
-          {t("sidebar_title")}
-        </Text>
+        <Image
+          source={require("../assets/logo.png")}
+          className="w-20 h-10"
+          resizeMode="contain"
+        />
         <TouchableOpacity
           onPress={onClose}
           className="p-2 rounded-full bg-gray-100"
@@ -42,7 +51,23 @@ const SideBarDrawer = ({
             </Text>
           </View>
           <TouchableOpacity
-            onPress={deleteAllChats}
+            onPress={() => {
+              Alert.alert(
+                "Delete Chats",
+                "Are you sure you want to delete all chats",
+                [
+                  { text: "Cancel", style: "cancel" },
+                  {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => {
+                      deleteAllChats();
+                    },
+                  },
+                ],
+                { cancelable: true }
+              );
+            }}
             className="p-2 rounded-lg bg-gray-100"
           >
             <Ionicons name="trash-outline" size={18} color="#991B1B" />
@@ -84,7 +109,7 @@ const SideBarDrawer = ({
       <View className="mt-auto pb-10 flex-col gap-2">
         <TouchableOpacity
           onPress={startNewChat}
-          className={`flex-row ${isRTL ? "flex-row-reverse" : "flex-row"}  items-center justify-center gap-2 p-4 bg-teal-600 rounded-lg`}
+          className={`flex-row ${isRTL ? "flex-row-reverse" : "flex-row"}  items-center justify-center gap-2 p-4 bg-[#005796] rounded-lg`}
         >
           <Ionicons name="chatbubble" size={20} color="white" />
           <Text className="text-white font-medium">{t("new_chat")}</Text>

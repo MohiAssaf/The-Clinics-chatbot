@@ -16,7 +16,7 @@ export const renderSendButton = (isRTL: boolean) => (props: any) => {
     >
       <View
         style={{
-          backgroundColor: props.text ? "#10B981" : "#A7F3D0",
+          backgroundColor: props.text ? "#005796" : "#00579682",
           borderRadius: 25,
           width: 48,
           height: 48,

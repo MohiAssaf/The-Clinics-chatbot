@@ -17,7 +17,7 @@ export const renderChatBubble =
         position={position}
         wrapperStyle={{
           right: {
-            backgroundColor: "#01827e",
+            backgroundColor: "#005796",
             paddingVertical: 8,
             paddingHorizontal: 14,
             borderTopRightRadius: 18,
