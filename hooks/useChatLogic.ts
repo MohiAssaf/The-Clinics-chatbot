@@ -83,6 +83,43 @@ export const useChatLogic = () => {
 
       return t("cant_answer");
     },
+    [i18n.language, t]
+  );
+
+  const getAutocompleteSuggestions = useCallback(
+    (text: string): string[] => {
+      if (!text) {
+        return [];
+      }
+      const lowerCaseText = text.toLowerCase().trim();
+      const currentLang = i18n.language;
+
+      const matchingQuestions: string[] = [];
+
+      predefinedQuestionsAndAnswers
+        .filter((qa) => qa.language === currentLang)
+        .forEach((qa) => {
+          if (Array.isArray(qa.question)) {
+            qa.question.forEach((q) => {
+              if (
+                q.toLowerCase().includes(lowerCaseText) &&
+                !matchingQuestions.includes(q)
+              ) {
+                matchingQuestions.push(q);
+              }
+            });
+          } else {
+            if (
+              qa.question.toLowerCase().includes(lowerCaseText) &&
+              !matchingQuestions.includes(qa.question)
+            ) {
+              matchingQuestions.push(qa.question);
+            }
+          }
+        });
+
+      return matchingQuestions.slice(0, 5);
+    },
     [i18n.language]
   );
 
@@ -166,7 +203,7 @@ export const useChatLogic = () => {
 
       setIsTyping(false);
     },
-    [activeChatId, getBotAnswer, t, i18n.language]
+    [activeChatId, getBotAnswer, t]
   );
 
   const onDeleteAllChats = useCallback(async () => {
@@ -232,5 +269,6 @@ export const useChatLogic = () => {
     AI_ID,
     isTyping,
     direction: i18n.dir(),
+    getAutocompleteSuggestions,
   };
 };

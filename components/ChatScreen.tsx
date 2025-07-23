@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,6 +11,7 @@ import { renderInputToolbar } from "./Chat/InputToolBar";
 import { useChatLogic } from "../hooks/useChatLogic";
 import { renderSendButton } from "./Chat/SendButton";
 import renderFooter from "./Chat/Footer";
+import { useTranslation } from "react-i18next";
 
 const ChatScreen = () => {
   const { t } = useTranslation();
@@ -27,10 +28,31 @@ const ChatScreen = () => {
     onToggleLanguage,
     onSendMessage,
     currentDisplayedChat,
-    USER_ID,
     isTyping,
-    direction,
+    USER_ID,
+    getAutocompleteSuggestions,
   } = useChatLogic();
+
+  const [inputText, setInputText] = useState("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
+  const handleInputTextChanged = useCallback(
+    (text: string) => {
+      setInputText(text);
+      if (text.length > 0) {
+        const matchingSuggestions = getAutocompleteSuggestions(text);
+        setSuggestions(matchingSuggestions);
+      } else {
+        setSuggestions([]);
+      }
+    },
+    [getAutocompleteSuggestions]
+  );
+
+  const handleSuggestionPress = useCallback((suggestion: string) => {
+    setInputText(suggestion);
+    setSuggestions([]);
+  }, []);
 
   if (loading) {
     return (
@@ -133,7 +155,11 @@ const ChatScreen = () => {
             }}
             renderMessage={renderChatMessage(isRTL, USER_ID)}
             renderAvatar={renderChatAvatar(isRTL, USER_ID)}
-            renderInputToolbar={renderInputToolbar(isRTL)}
+            renderInputToolbar={renderInputToolbar(
+              isRTL,
+              suggestions,
+              handleSuggestionPress
+            )}
             renderBubble={renderChatBubble(isRTL, USER_ID)}
             textInputProps={{
               textAlign: isRTL ? "right" : "left",
@@ -153,6 +179,8 @@ const ChatScreen = () => {
                 maxHeight: 120,
               },
             }}
+            text={inputText}
+            onInputTextChanged={handleInputTextChanged}
             renderSend={renderSendButton(isRTL)}
             timeFormat="HH:mm"
             dateFormat="MMMM D, YYYY"
