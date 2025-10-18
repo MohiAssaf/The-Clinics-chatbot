@@ -26,7 +26,7 @@ const TypingDot = ({ delay }: { delay: number }) => {
 
   return (
     <Animated.View
-      className="w-2 h-2 rounded-full bg-gray-500"
+      className="w-2 h-2 rounded-full bg-sky-800"
       style={animatedStyle}
     />
   );
