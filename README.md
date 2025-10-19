@@ -7,9 +7,8 @@
 ## Table of Contents
 
 - [Features](#features)  
-- [Preview](#preview)  
+- [App Demo](#app-demo)   
 - [Installation & Setup](#installation--setup)
-- [Running the App](#running-the-app)  
 - [Dependencies](#dependencies)  
 
 ---
