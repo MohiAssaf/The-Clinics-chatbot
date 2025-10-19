@@ -1,33 +1,33 @@
-# The Clinics Chatbot App
+# 🏥 The Clinics Chatbot App
 
 **The Clinics** is a multilingual medical chatbot application built with **React Native** and **Expo**. The app provides users with predefined medical questions and answers, real-time suggestions, and a smooth chat experience. It supports both **English** and **Arabic**, with **RTL (Right-to-Left)** layout support for Arabic.
 
 ---
 
-## Table of Contents
+## 📖 Table of Contents
 
-- [Features](#features)  
-- [App Demo](#app-demo)   
-- [Installation & Setup](#installation--setup)
-- [Dependencies](#dependencies)  
-
----
-
-## Features
-
-- Multilingual support: English & Arabic (RTL compatible)  
-- Predefined medical Q&A with **autocomplete suggestions**  
-- Real-time input suggestions and auto-fill  
-- Persistent language selection using AsyncStorage  
-- Animated typing indicator with `react-native-reanimated`  
-- Splash screen with **Lottie animation**  
-- Multi-chat support with **recent chats, new chat creation, and chat deletion**  
-- Modular UI with **SideDrawer** for navigation  
-- Fully compatible with Expo 53  
+- [✨ Features](#features)  
+- [🎬 App Demo](#app-demo)   
+- [⚙️ Installation & Setup](#installation--setup)
+- [📦 Dependencies](#dependencies)   
 
 ---
 
-## 📱 App Demo
+## ✨ Features
+
+- 🌐 Multilingual support: English & Arabic (RTL compatible)  
+- ❓ Predefined medical Q&A with **autocomplete suggestions**  
+- 📝 Real-time input suggestions and auto-fill  
+- 💾 Persistent language selection using AsyncStorage  
+- 🎨 Animated typing indicator with `react-native-reanimated`  
+- 🎉 Splash screen with **Lottie animation**  
+- 💬 Multi-chat support with **recent chats, new chat creation, and chat deletion**  
+- 🧩 Modular UI with **SideDrawer** for navigation  
+- ✅ Fully compatible with Expo 53 
+
+---
+
+## App Demo
 
 🎥 Here’s a short preview of **The Clinics Chatbot App** 👇  
 
