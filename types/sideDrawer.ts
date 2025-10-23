@@ -1,4 +1,4 @@
-import { Chat } from "./chat";
+import { Chat } from "@/types/chat";
 
 export type SideBarDrawerProps = {
   onToggleLang: () => void;

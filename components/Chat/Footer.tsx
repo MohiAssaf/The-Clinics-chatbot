@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import TypingDot from "./TypingDot";
+import TypingDot from "@/components/Chat/TypingDot";
 
 const renderFooter = (isTyping: boolean, isRTL: boolean) => (props: any) => {
   if (!isTyping) return null;

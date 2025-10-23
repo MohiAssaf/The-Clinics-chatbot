@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Chat } from "../types/chat";
-import { STORAGE_KEY } from "../constants/chat";
+import { Chat } from "@/types/chat";
+import { STORAGE_KEY } from "@/constants/chat";
 
 export const loadChatsFromStorage = async (): Promise<Chat[]> => {
   try {

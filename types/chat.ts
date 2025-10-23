@@ -5,3 +5,10 @@ export type Chat = {
   messages: IMessage[];
   createdAt: number;
 };
+
+export interface ChatHistoryItemProps {
+  chat: any;
+  activeChatId: string | null;
+  setActiveChatId: (id: string) => void;
+  onClose: () => void;
+}

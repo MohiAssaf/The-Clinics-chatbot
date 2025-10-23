@@ -2,12 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GiftedChat, IMessage } from "react-native-gifted-chat";
-import { AI_ID, USER_ID } from "../constants/chat";
-import { LANGUAGE_STORAGE_KEY } from "../constants/chat";
-import { loadChatsFromStorage, saveChatsToStorage } from "../services/storage";
-import { createWelcomeMessage, generateNewChatId } from "../utils/chatHelpers";
-import { Chat } from "../types/chat";
-import { predefinedQuestionsAndAnswers } from "../constants/predifinedQandA";
+import { AI_ID, USER_ID } from "@/constants/chat";
+import { LANGUAGE_STORAGE_KEY } from "@/constants/chat";
+import { loadChatsFromStorage, saveChatsToStorage } from "@/services/storage";
+import { createWelcomeMessage, generateNewChatId } from "@/utils/chatHelpers";
+import { Chat } from "@/types/chat";
+import { predefinedQuestionsAndAnswers } from "@/constants/predifinedQandA";
 
 export const useChatLogic = () => {
   const { t, i18n } = useTranslation();

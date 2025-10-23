@@ -3,14 +3,14 @@ import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Ionicons } from "@expo/vector-icons";
 import { Drawer } from "react-native-drawer-layout";
-import SideBarDrawer from "./SideBarDrawer";
-import { renderChatBubble } from "./Chat/Bubble";
-import { renderChatAvatar } from "./Chat/Avatar";
-import { renderChatMessage } from "./Chat/Message";
-import { renderInputToolbar } from "./Chat/InputToolBar";
-import { useChatLogic } from "../hooks/useChatLogic";
-import { renderSendButton } from "./Chat/SendButton";
-import renderFooter from "./Chat/Footer";
+import SideBarDrawer from "@/components/SideBarDrawer";
+import { renderChatBubble } from "@/components/Chat/Bubble";
+import { renderChatAvatar } from "@/components/Chat/Avatar";
+import { renderChatMessage } from "@/components/Chat/Message";
+import { renderInputToolbar } from "@/components/Chat/InputToolBar";
+import { useChatLogic } from "@/hooks/useChatLogic";
+import { renderSendButton } from "@/components/Chat/SendButton";
+import renderFooter from "@/components/Chat/Footer";
 import { useTranslation } from "react-i18next";
 
 const ChatScreen = () => {

@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { SideBarDrawerProps } from "../types/sideDrawer";
+import { SideBarDrawerProps } from "@/types/sideDrawer";
 
 const SideBarDrawer = ({
   onToggleLang,
