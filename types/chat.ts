@@ -7,8 +7,9 @@ export type Chat = {
 };
 
 export interface ChatHistoryItemProps {
-  chat: any;
+  chat: Chat;
   activeChatId: string | null;
   setActiveChatId: (id: string) => void;
+  onDelChat: (chatId?: string) => void;
   onClose: () => void;
 }

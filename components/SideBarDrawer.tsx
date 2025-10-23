@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { SideBarDrawerProps } from "@/types/sideDrawer";
+import ChatHistoryItem from "@/components/Chat/ChatHistoryItem";
 
 const SideBarDrawer = ({
   onToggleLang,
@@ -18,7 +19,7 @@ const SideBarDrawer = ({
   activeChatId,
   setActiveChatId,
   startNewChat,
-  deleteAllChats,
+  onDeleteChat,
 }: SideBarDrawerProps) => {
   const { t } = useTranslation();
 
@@ -61,7 +62,7 @@ const SideBarDrawer = ({
                     text: "Delete",
                     style: "destructive",
                     onPress: () => {
-                      deleteAllChats();
+                      onDeleteChat();
                     },
                   },
                 ],
@@ -81,21 +82,14 @@ const SideBarDrawer = ({
         >
           {chats?.length > 0 ? (
             chats.map((chat: any) => (
-              <TouchableOpacity
+              <ChatHistoryItem 
                 key={chat.id}
-                onPress={() => {
-                  setActiveChatId(chat.id);
-                  onClose();
-                }}
-                className={`p-3 rounded-lg mb-2 ${chat.id === activeChatId ? "bg-blue-50 border border-blue-200" : "bg-gray-50"}`}
-              >
-                <Text
-                  className={`${chat.id === activeChatId ? "text-blue-800" : "text-gray-800"}`}
-                  numberOfLines={1}
-                >
-                  {chat.messages[0]?.text.slice(0, 30) || "New Chat"}
-                </Text>
-              </TouchableOpacity>
+                chat={chat}
+                activeChatId={activeChatId}
+                setActiveChatId={setActiveChatId}
+                onDelChat={onDeleteChat}
+                onClose={onClose}
+              />
             ))
           ) : (
             <View className="py-8 items-center justify-center">
