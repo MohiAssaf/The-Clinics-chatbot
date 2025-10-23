@@ -8,5 +8,5 @@ export type SideBarDrawerProps = {
   activeChatId: string | null;
   setActiveChatId: (id: string) => void;
   startNewChat: () => void;
-  deleteAllChats: () => void;
+  onDeleteChat: () => void;
 };

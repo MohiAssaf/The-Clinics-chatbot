@@ -24,7 +24,7 @@ const ChatScreen = () => {
     activeChatId,
     setActiveChat,
     startNewChat,
-    onDeleteAllChats,
+    onDeleteChat,
     onToggleLanguage,
     onSendMessage,
     currentDisplayedChat,
@@ -92,7 +92,7 @@ const ChatScreen = () => {
             setDrawerOpen(false);
           }}
           startNewChat={startNewChat}
-          deleteAllChats={onDeleteAllChats}
+          onDeleteChat={onDeleteChat}
         />
       )}
     >

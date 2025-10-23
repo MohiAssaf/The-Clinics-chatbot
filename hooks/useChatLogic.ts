@@ -206,17 +206,32 @@ export const useChatLogic = () => {
     [activeChatId, getBotAnswer, t]
   );
 
-  const onDeleteAllChats = useCallback(async () => {
-    try {
-      await saveChatsToStorage([]);
-      setChats([]);
-      setActiveChatId(null);
-      isTemporaryNewChatRef.current = false;
-      onStartNewChat();
-    } catch (err) {
-      console.error("Failed to delete chats:", err);
-    }
-  }, [onStartNewChat]);
+  const onDeleteChat = useCallback(
+    async (chatId?: string) => {
+      try {
+        if (chatId) {
+          const updatedChats = chats.filter((chat) => chat.id !== chatId);
+          await saveChatsToStorage(updatedChats);
+          setChats(updatedChats);
+
+          if (activeChatId === chatId) {
+            setActiveChatId(null);
+            isTemporaryNewChatRef.current = false;
+            onStartNewChat();
+          }
+        } else {
+          await saveChatsToStorage([]);
+          setChats([]);
+          setActiveChatId(null);
+          isTemporaryNewChatRef.current = false;
+          onStartNewChat();
+        }
+      } catch (err) {
+        console.error("Failed to delete chats:", err);
+      }
+    },
+    [chats, activeChatId, onStartNewChat]
+  );
 
   const onToggleLanguage = useCallback(async () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
@@ -261,7 +276,7 @@ export const useChatLogic = () => {
     activeChatId,
     setActiveChat: onSetActiveChat,
     startNewChat: onStartNewChat,
-    onDeleteAllChats,
+    onDeleteChat,
     onToggleLanguage,
     onSendMessage,
     currentDisplayedChat,
